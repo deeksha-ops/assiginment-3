@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <style>
+      .block-box {
+        display: flex;
+      }
+
+      .block-box h4 {
+        margin: 0;
+      }
+
+      ul li {
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+
+      li p {
+        margin: 0;
+      }
+
+      .row {
+        display: flex;
+      }
+      .row .col {
+        width: 70%;
+      }
+      .row input {
+        width: 80%;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./q1.js"></script>
+  </head>
+  <body>
+    <div id="graph_screen"></div>
+    <script>
+      d3.json("./publication_network.json").then(function (data) {
+        let svg = d3
+          .select("#graph_screen")
+          .append("svg")
+          .attr("width", "90vw")
+          .attr("height", "700px")
+          .attr("viewBox", "0 0 1000 800");
+
+        simulate(data, svg); // main function to make network
+      });
+    </script>
+    <ul>
+      <li>
+        <strong>Title: </strong>
+        <p id="Paper_Title"></p>
+      </li>
+      <li>
+        <strong>Author Name: </strong>
+        <p id="author_name"></p>
+      </li>
+      <li>
+        <strong>Publisher: </strong>
+        <p id="publisher"></p>
+      </li>
+      <li>
+        <strong>Country: </strong>
+        <p id="country"></p>
+      </li>
+      <li>
+        <strong>Year: </strong>
+        <p id="year"></p>
+      </li>
+    </ul>
+    <div class="row">
+      <div class="col">
+        <label for="collide">Collide Force:</label>
+        <p>What value:</p>
+        <p id="collide_value"></p>
+        <input type="range" id="collide" min="0" max="100" step="1" value="0" />
+      </div>
+      <div class="col">
+        <label for="charge">Charge Force:</label>
+        <p>What value:</p>
+        <p id="charge_value"></p>
+        <input
+          type="range"
+          id="charge"
+          min="-1000"
+          max="1000"
+          step="1"
+          value="-55"
+        />
+      </div>
+      <div class="col">
+        <label for="linkStrength">Link Strength:</label>
+        <p>What value:</p>
+        <p id="linkStrength_value"></p>
+        <input
+          type="range"
+          id="linkStrength"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.4"
+        />
+      </div>
+    </div>
+    <div>
+      <label>
+        <input type="radio" name="nodeSize" value="publications" checked />
+        Number of Publications
+      </label>
+      <label>
+        <input type="radio" name="nodeSize" value="degree" />
+        Degree
+      </label>
+      <label>
+        <input type="radio" name="nodeSize" value="citations" />
+        Number of Citations
+      </label>
+    </div>
+  </body>
+</html>
